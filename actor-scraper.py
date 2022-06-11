@@ -1,8 +1,5 @@
-from tokenize import String
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
 import json
 
 actors = []
@@ -35,11 +32,15 @@ for actor in actors:
     filmography_even = driver.find_elements(by=By.XPATH, value='//div[@class="filmo-row even"]')
 
     films_list = {}
+    iter = 0
     for p in range(len(filmography_odd)):
-        films_list.append(filmography_odd[p].text)
+        films_list[iter] = filmography_odd[p].text
+        iter+= 1
         if p < len(filmography_even):
-            films_list.append(filmography_even[p].text)
-        data[actor] = films_list.trim()
+            films_list[iter] = filmography_even[p].text
+            iter+=1
+    
+    data[actor] = films_list
     driver.quit()
 
 with open('filmography_data.json', 'w') as f:
