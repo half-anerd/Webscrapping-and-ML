@@ -41,7 +41,7 @@ for actor in actors:
             iter+=1
     
     data[actor] = films_list
-    driver.quit()
+driver.quit()
 
 with open('filmography_data.json', 'w') as f:
     json.dump(data, f)
